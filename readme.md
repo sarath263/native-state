@@ -2,7 +2,9 @@
 A native global state implementation with react.
 
 >  No external dependencies used.
+> 
 >  Very lightweight (605 bytes in size)
+> 
 >  Simple usage( **no reducers, no actions and no boilerplate code required** )
 
 Add `<Root>` provider in your top component tree (`index.js`), 

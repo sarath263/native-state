@@ -1,0 +1,37 @@
+{
+  "name": "native-state",
+  "version": "1.0.0",
+  "description": "Very lightweight and most efficient implementation for react global state, using react context and hooks. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarath263/native-state.git"
+  },
+  "keywords": [
+    "react",
+    "react state",
+    "react global state",
+    "global state",
+    "state",
+    "state management",
+    "react context state",
+    "react context",
+    "redux",
+    "mobx"
+  ],
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "react": "^18.2.0"
+  },
+  "author": "sarath263",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarath263/native-state/issues"
+  },
+  "homepage": "https://github.com/sarath263/native-state#readme"
+}

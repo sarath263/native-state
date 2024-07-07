@@ -6,6 +6,8 @@ A native global state implementation with react. At least React version `18.2.0`
 >  Very lightweight (605 bytes in size)
 > 
 >  Simple usage( **no reducers, no actions and no boilerplate code required** )
+>
+>  Perfect replacement for Redux and Mobx
 
 #
 

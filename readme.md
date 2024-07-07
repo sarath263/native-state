@@ -51,7 +51,7 @@ Add `<Root>` provider in your top component tree (`index.js`),
     document.getElementById('root'),
     )
 
-In `App.js`
+In your component
 
     import { useSelector } from 'native-state-react';
     function App() {

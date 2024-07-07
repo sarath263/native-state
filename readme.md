@@ -1,5 +1,5 @@
 # Native state for React
-A native global state implementation with react.
+A native global state implementation with react. At least React version `18.2.0` is required.
 
 >  No external dependencies used.
 > 

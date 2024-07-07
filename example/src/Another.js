@@ -1,10 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
 import { useSelector } from 'native-state-react';
 import { useEffect } from 'react';
 
 function Another() {
   const [school,setState] = useSelector(s=>s.school);
+  useEffect(()=>{
+
+    setTimeout(() => {
+        setState({school:{class:"X"}});
+    }, 6000);
+  },[])
   return (
     <div className="App">
         <p>

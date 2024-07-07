@@ -7,6 +7,8 @@ A native global state implementation with react.
 > 
 >  Simple usage( **no reducers, no actions and no boilerplate code required** )
 
+#
+
 First, `import` and Add `<Root>` provider in the top level. 
 
 then, `import` and use `useSelector` to get the desired global state slice and update function like this.
@@ -15,7 +17,17 @@ then, `import` and use `useSelector` to get the desired global state slice and u
 
 if `name` not found in global state, it will return `undefined`.
 
-And you can update the name like this.. `setState({name:"Will"});`
+And you can update the name like this.. 
+
+`setState({name:"Will"});`
+
+Add/update another state property by
+
+`setState({school:{class:"VII"}});`
+
+#
+
+### Full implementation
 
 Add `<Root>` provider in your top component tree (`index.js`), 
 

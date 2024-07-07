@@ -1,5 +1,7 @@
-# Native state for React
+# Native Global state for React
 A native global state implementation with react. At least React version `18.2.0` is required.
+
+Lightweight and most efficient implementation for react global state,just using in built react hooks. Magic ! 
 
 >  No external dependencies used.
 > 

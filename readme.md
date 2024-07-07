@@ -9,11 +9,9 @@ A native global state implementation with react.
 
 First, `import` and Add `<Root>` provider in the top level. 
 
-then, `import` and use `useSelector` to get the desired global state slice and update function.
+then, `import` and use `useSelector` to get the desired global state slice and update function like this.
 
-like this.
-
-const [name,setState] = useSelector(s=>s.name);
+`const [name,setState] = useSelector(s=>s.name);`
 
 if `name` not found in global state, it will return `undefined`.
 

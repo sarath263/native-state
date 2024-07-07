@@ -44,9 +44,9 @@ Add `<Root>` provider in your top component tree (`index.js`),
     };
     ReactDOM.render(
      <React.StrictMode>
-		<Root initial={store}> // 'initial' prop is optional(default will be empty object).
+		**<Root initial={store}> // 'initial' prop is optional(default will be empty object).**
 		  <App/>
-		</Root>
+		**</Root>**
 	 </React.StrictMode>,
 	 document.getElementById('root'),
     )

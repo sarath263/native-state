@@ -1,4 +1,4 @@
-# Native Global state for React
+# Native Global state for React [![Node.js Package](https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml)
 A native global state implementation with react. At least React version `18.2.0` is required.
 
 Lightweight and most efficient implementation for react global state,just using in built react hooks. Magic ! 

@@ -13,7 +13,7 @@ function App() {
 
     setInterval(() => {
       setState({school:{time:new Date().toISOString(),class:"V"}});
-    }, 3000);
+    }, 5000);
   },[]);
   return (
     <div className="App">

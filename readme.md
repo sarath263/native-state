@@ -11,7 +11,7 @@ A native global state implementation with react. At least React version `18.2.0`
 
 #
 
-First, `import` and Add `<Root>` provider in the top level. 
+First, `import` and Add `<Root />` as a component in the top level. 
 
 then, `import` and use `useSelector` to get the desired global state slice and update function like this.
 
@@ -29,9 +29,11 @@ Add/update another state property by
 
 #
 
+#### See `example` folder for react project example implementation.
+
 ### Full implementation
 
-Add `<Root>` provider in your top component tree (`index.js`), 
+Add `<Root>` in your top component tree (`index.js`), 
 
     import React from 'react';
     import ReactDOM from 'react-dom';
@@ -44,9 +46,8 @@ Add `<Root>` provider in your top component tree (`index.js`),
     };
     ReactDOM.render(
      <React.StrictMode>
-	<Root initial={store}> // 'initial' prop is optional(default will be empty object).
+	  <Root initial={store} /> // 'initial' prop is optional(default will be empty object).
 	  <App/>
-	</Root>
      </React.StrictMode>,
     document.getElementById('root'),
     )

@@ -13,7 +13,7 @@ A native global state implementation with react. At least React version `18.2.0`
 
 First, `import` and Add `<Root />` as a component in the top level. 
 
-then, `import` and use `useSelector` to get the desired global state slice and update function like this.
+then, `import` and use `useSelector` to get the desired global state slice.
 
 `const [name,setState] = useSelector(s=>s.name);`
 

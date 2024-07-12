@@ -3,6 +3,8 @@ A native global state implementation with react. At least React version `18.2.0`
 
 Lightweight and most efficient implementation for react global state,just using in built react hooks. Magic ! 
 
+>  Component renders only if the slice taken(in example `s.name`) changes.
+> 
 >  No external dependencies used.
 > 
 >  Very lightweight (605 bytes in size)

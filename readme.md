@@ -14,6 +14,11 @@ Lightweight and most efficient implementation for react global state,just using 
 >  Perfect replacement for Redux and Mobx
 
 #
+ 
+### Install
+#### npm i native-state-react
+#
+### Usage
 
 First, `import` and Add `<Root />` as a component in the top level. 
 

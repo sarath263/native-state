@@ -35,14 +35,14 @@ export const useSelector = (selector) => {
     subscribe,
     () => {
       try {
-        return selector(s) || null;
+        return selector(s);
       } catch (error) {
         return undefined;
       }
     },
     () => {
       try {
-        return selector(s) || null;
+        return selector(s);
       } catch (error) {
         return undefined;
       }

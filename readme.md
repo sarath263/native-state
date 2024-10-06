@@ -20,21 +20,22 @@ Lightweight and most efficient implementation for react global state,just using 
 #
 ### Usage
 
-First, `import` and Add `<Root />` as a component in the top level. 
+1. First, `import` and Add `<Root initial={{/* Initial state */}}/>` as a component in the top level. 
 
-then, `import` and use `useSelector` to get the desired global state slice.
+2. Then, `import` and use `useSelector` to get the desired global state slice.
 
-`const [name,setState] = useSelector(s=>s.name);`
+   `const [name,setState] = useSelector(s=>s.name);`
 
-if `name` not found in global state, it will return `undefined`.
+3. Note:
+   - **If `name` not found in global state, it will return `undefined`.**
+   - **Eventhough `name` coming from global state, Note that, setState can still update the global state values, not just the name.**
+4. Update the name like this.. 
 
-And you can update the name like this.. 
+   `setState({name:"Will"});`
 
-`setState({name:"Will"});`
+5. Add/update another state property by
 
-Add/update another state property by
-
-`setState({school:{class:"VII"}});`
+   `setState({school:{class:"VII"}});`
 
 #
 

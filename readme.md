@@ -83,7 +83,7 @@ Example with state update.
 	    const [name,setState] = useSelector(s=>s.name);
 	    useEffect(()=>{
 		    setTimeout(() => {
-			    setSt({name:"George"});
+			    setState({name:"George"});
 		    }, 3000);
 		 },[]);
 	    

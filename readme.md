@@ -74,7 +74,7 @@ Update name in the state like this
 
     setState({name:"George"});
 
-it just replaces the given name in the existing state, other state values will stay unchanged. The `school` object in global state will stay unchanged.
+it just replaces the given name in the existing state, other state values will stay unchanged. We can use the same setState to update another value in global state setState({school:{class:"1A"}})
 
 Example with state update.
 

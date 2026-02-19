@@ -1,92 +1,116 @@
-# Native Global state for React [![Node.js Package](https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml)
-A native global state implementation with react. At least React version `18.2.0` is required.
+# Native Global State for React
 
-Lightweight and most efficient implementation for react global state,just using in built react hooks. Compatible with React Native too. 
+[![Node.js Package](https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml)
 
->  Component renders only if the slice taken(in example `s.name`) changes.
-> 
->  No external dependencies used.
-> 
->  Very lightweight (605 bytes in size)
-> 
->  Simple usage( **no reducers, no actions and no boilerplate code required** )
->
->  Perfect replacement for Redux and Mobx
+A lightweight, efficient global state management library for React, using only built-in React hooks. Requires React version 18.2.0 or higher. Compatible with React Native.
 
-#
- 
-### Install
-#### npm i native-state-react
-#
-### Usage
+## Features
 
-1. First, `import` and Add `<Root initial={{/* Initial state */}}/>` as a component in the top level. 
+- **Efficient Rendering**: Components re-render only when the selected state slice changes.
+- **No External Dependencies**: Uses only React's built-in hooks.
+- **Lightweight**: Just 605 bytes in size.
+- **Simple API**: No reducers, actions, or boilerplate code needed.
+- **Drop-in Replacement**: Perfect alternative to Redux and MobX.
 
-2. Then, `import` and use `useSelector` to get the desired global state slice.
+## Installation
 
-   `const [name,setState] = useSelector(s=>s.name);`
+```bash
+npm install native-state-react
+```
 
-3. Note:
-   - **If `name` not found in global state, it will return `undefined`.**
-   - **Eventhough `name` coming from global state, Note that, setState can still update the global state values, not just the name.**
-4. Update the name like this.. 
+## Quick Start
 
-   `setState({name:"Will"});`
+1. Wrap your app with the `<Root>` component at the top level, providing the initial state.
 
-5. Add/update another state property by
+2. Use `useSelector` in components to access and update global state.
 
-   `setState({school:{class:"VII"}});`
+### Basic Example
 
-#
+```jsx
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Root } from 'native-state-react';
 
-#### See `example` folder for react project example implementation.
+const initialState = {
+  name: "Mary",
+  school: { class: "V" }
+};
 
-### Full implementation
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-Add `<Root>` in your top component tree (`index.js`), 
+root.render(
+  <React.StrictMode>
+    <Root initial={initialState} />
+    <App />
+  </React.StrictMode>
+);
+```
 
-    import React from 'react';
-    import ReactDOM from 'react-dom';
-    //Add import 
-    import { Root } from 'native-state-react'; 
-    
-	let store={ 
-	    name:"Mary",
-	    school:{class:"V"}
-    };
-    ReactDOM.render(
-     <React.StrictMode>
-	  <Root initial={store} /> // 'initial' prop is optional(default will be empty object).
-	  <App/>
-     </React.StrictMode>,
-    document.getElementById('root'),
-    )
+In your component:
 
-In your component
+```jsx
+import { useSelector } from 'native-state-react';
 
-    import { useSelector } from 'native-state-react';
-    function App() {
-	    const [name,setState] = useSelector(s=>s.name);
-	    return <div>{name}</div>
-    }
-    
-Update name in the state like this
+function App() {
+  const [name, setState] = useSelector(s => s.name);
 
-    setState({name:"George"});
+  const updateName = () => {
+    setState({ name: "George" });
+  };
 
-it just replaces the given name in the existing state, other state values will stay unchanged. We can use the same setState to update another value in global state setState({school:{class:"1A"}})
+  return (
+    <div>
+      <p>Name: {name}</p>
+      <button onClick={updateName}>Update Name</button>
+    </div>
+  );
+}
+```
 
-Example with state update.
+## API
 
-    import { useSelector } from 'native-state-react';
-    function Class() {
-	    const [name,setState] = useSelector(s=>s.name);
-	    useEffect(()=>{
-		    setTimeout(() => {
-			    setState({name:"George"});
-		    }, 3000);
-		 },[]);
-	    
-	    return <div>{name}</div>
-    }
-With Above code, you can see the name gets updated in UI after 3 seconds.
+### `<Root>`
+
+The root component that provides the global state context.
+
+- `initial`: (optional) Object - The initial state. Defaults to an empty object `{}`.
+
+### `useSelector(selector)`
+
+Hook to select a slice of the global state.
+
+- `selector`: Function - A function that takes the state and returns the desired slice.
+
+Returns: `[value, setState]`
+
+- `value`: The current value of the selected slice. `undefined` if the slice doesn't exist.
+- `setState`: Function to update the global state by merging the provided object.
+
+**Note**: `setState` merges the provided object into the global state. It can update any part of the state, not just the selected slice.
+
+## Advanced Example
+
+```jsx
+import { useSelector } from 'native-state-react';
+import { useEffect } from 'react';
+
+function ClassComponent() {
+  const [schoolClass, setState] = useSelector(s => s.school?.class);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setState({ school: { class: "1A" } });
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return <div>Class: {schoolClass}</div>;
+}
+```
+
+This updates the `school.class` after 3 seconds, and the component will re-render.
+
+## Examples
+
+See the `example` folder for a complete React project implementation.

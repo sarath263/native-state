@@ -185,9 +185,11 @@ function ClassComponent() {
 See the `example` folder for a complete React project implementation demonstrating live updates, time stamps, and cross-component syncing.
 
 ---
+
+## Documentation (Versions &lt;= 2.0.*)
 <div id="footer">
 <details >
-  <summary><b>📖 Legacy Documentation (Versions &lt;= 2.0.*)</b></summary>
+  <summary><b>📖 Legacy Versions &lt;= 2.0.x </b></summary>
   <br />
 
   If you are using legacy versions of `native-state-react` (versions `2.0.x` or below), please refer to the documentation below:

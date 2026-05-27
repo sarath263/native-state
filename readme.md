@@ -1,30 +1,132 @@
-# Native Global State for React
+<div align="center">
+  <h1>
+    <br/>
+    <br/>
+    🌍 ⚛️ 🤖
+    <br />
+    native-state-react
+    <br />
+    <br />
+    <br />
+    <br />
+  </h1>
+  <sup>
+    <br />
+    <a href="https://www.npmjs.com/package/native-state-react">
+       <img src="https://img.shields.io/npm/v/native-state-react.svg" alt="npm package" />
+    </a>
+    <a href="https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml">
+      <img src="https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml/badge.svg" alt="build" />
+    </a>
+    <a href="https://www.npmjs.com/package/native-state-react">
+      <img src="https://img.shields.io/npm/dm/native-state-react.svg" alt="npm downloads" />
+    </a>
+    <br />
+    <br />
+    A lightweight, efficient global state management library for <a href="https://react.dev/">React</a>.
+    <br />
+    <em>Uses only built-in React hooks. Compatible with React Native.</em>
+    <br />
+    <br />
+  </sup>
+  <br />
+  <br />
+  <pre>npm i <a href="https://www.npmjs.com/package/native-state-react">native-state-react</a></pre>
+  <br />
 
-[![Node.js Package](https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/sarath263/native-state/actions/workflows/npm-publish.yml)
-
-A lightweight, efficient global state management library for React, using only built-in React hooks. Requires React version 18.2.0 or higher. Compatible with React Native.
+</div>
 
 ## Features
 
 - **Efficient Rendering**: Components re-render only when the selected state slice changes.
 - **No External Dependencies**: Uses only React's built-in hooks.
-- **Lightweight**: Just 605 bytes in size.
-- **Simple API**: No reducers, actions, or boilerplate code needed.
+- **Lightweight**: Total of 115 lines code (entire library).
+- **Simple API**: Use global state like `useState` in React. Neither reducers, actions, or boilerplate code.
 - **Drop-in Replacement**: Perfect alternative to Redux and MobX.
-
-## Installation
-
-```bash
-npm install native-state-react
-```
 
 ## Quick Start
 
-1. Wrap your app with the `<Root>` component at the top level, providing the initial state.
+1. Wrap your app with the `<Root>` component at the top level, optionally providing the initial state.
 
-2. Use `useSelector` in components to access and update global state.
+2. Use `useNativeState` or `useNativeSelector` in your components to read and update global state.
+
+## If you are using version 2.0.* or lower [`See documentation below`](#footer)
 
 ### Basic Example
+
+```jsx
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Root } from 'native-state-react';
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
+  <React.StrictMode>
+    <Root />
+    <App />
+  </React.StrictMode>
+);
+```
+
+> [!NOTE]
+> Wrap your `<App />` inside `<Root>` (or render `<Root />` as a top-level sibling component) to initialize your global state.
+
+In your component:
+
+```jsx
+import { useNativeState } from 'native-state-react';
+
+function App() {
+  const [name, setName] = useNativeState('s.name');
+
+  const updateName = () => {
+    setName("George");
+  };
+
+  return (
+    <div>
+      <p>Name: {name}</p>
+      <button onClick={updateName}>Update Name</button>
+    </div>
+  );
+}
+```
+
+## API
+
+### `<Root>`
+
+The root component that initializes the global state store.
+
+- `initial`: (optional) Object - The initial state. Defaults to an empty object `{}`.
+- `children`: (optional) React Nodes - Children to render inside `<Root>`.
+
+### `useNativeState(pathString, initialVal)`
+
+Hook to read and write a specific slice of the global state using string path notation.
+
+- `pathString`: String - The path to select in the global state, starting with `'s'` (e.g. `'s.name'`, `'s.school.class'`, `'s.todos[0].title'`).
+- `initialVal`: (optional) Any - The value to initialize the path with on-mount if it is currently `undefined`.
+
+Returns: `[value, setValue]`
+
+- `value`: The current value at the specified path.
+- `setValue`: Function to update the value of this specific path.
+
+### `useNativeSelector(selectorFunction)`
+
+A highly optimized read-only hook that subscribes to state slices. Components using this hook will re-render **only** when the selected slice changes. Internally utilizes React's modern `useSyncExternalStore` for tear-free rendering.
+
+- `selectorFunction`: Function - A function that accepts the state and returns the selected slice (e.g. `s => s.name`).
+
+Returns: `value`
+
+- `value`: The read-only value of the selected state slice.
+
+## Advanced Example
+
+### At App level initialization
 
 ```jsx
 import React from 'react';
@@ -41,76 +143,148 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Root initial={initialState} />
-    <App />
+    <Root initial={initialState}>
+      <App />
+    </Root>
   </React.StrictMode>
 );
+
 ```
 
-In your component:
+Using both `useNativeState` for writing state slices and `useNativeSelector` for highly optimized read-only selections:
 
 ```jsx
-import { useSelector } from 'native-state-react';
+import { useNativeState, useNativeSelector } from 'native-state-react';
+import { useEffect } from 'react';
 
-function App() {
-  const [name, setState] = useSelector(s => s.name);
+function ClassComponent() {
+  // Syncs and updates the specific path 's.school' with an optional on-mount default
+  const [school, setSchool] = useNativeState('s.school', { class: "V" });
 
-  const updateName = () => {
-    setState({ name: "George" });
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSchool({ class: "1A" });
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [setSchool]);
+
+  // Read-only selector; component only re-renders if 'name' changes
+  const name = useNativeSelector(s => s.name);
 
   return (
     <div>
-      <p>Name: {name}</p>
-      <button onClick={updateName}>Update Name</button>
+      <p>Student Name: {name}</p>
+      <p>Class: {school?.class}</p>
     </div>
   );
 }
 ```
 
-## API
-
-### `<Root>`
-
-The root component that provides the global state context.
-
-- `initial`: (optional) Object - The initial state. Defaults to an empty object `{}`.
-
-### `useSelector(selector)`
-
-Hook to select a slice of the global state.
-
-- `selector`: Function - A function that takes the state and returns the desired slice.
-
-Returns: `[value, setState]`
-
-- `value`: The current value of the selected slice. `undefined` if the slice doesn't exist.
-- `setState`: Function to update the global state by merging the provided object.
-
-**Note**: `setState` merges the provided object into the global state. It can update any part of the state, not just the selected slice.
-
-## Advanced Example
-
-```jsx
-import { useSelector } from 'native-state-react';
-import { useEffect } from 'react';
-
-function ClassComponent() {
-  const [schoolClass, setState] = useSelector(s => s.school?.class);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setState({ school: { class: "1A" } });
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return <div>Class: {schoolClass}</div>;
-}
-```
-
-This updates the `school.class` after 3 seconds, and the component will re-render.
-
 ## Examples
 
-See the `example` folder for a complete React project implementation.
+See the `example` folder for a complete React project implementation demonstrating live updates, time stamps, and cross-component syncing.
+
+---
+<div id="footer">
+<details >
+  <summary><b>📖 Legacy Documentation (Versions &lt;= 2.0.*)</b></summary>
+  <br />
+
+  If you are using legacy versions of `native-state-react` (versions `2.0.x` or below), please refer to the documentation below:
+
+  ## Quick Start
+
+  1. Wrap your app with the `<Root>` component at the top level, providing the initial state.
+
+  2. Use `useSelector` in components to access and update global state.
+
+  ### Basic Example
+
+  ```jsx
+  import React from 'react';
+  import { createRoot } from 'react-dom/client';
+  import { Root } from 'native-state-react';
+
+  const initialState = {
+    name: "Mary",
+    school: { class: "V" }
+  };
+
+  const container = document.getElementById('root');
+  const root = createRoot(container);
+
+  root.render(
+    <React.StrictMode>
+      <Root initial={initialState} />
+      <App />
+    </React.StrictMode>
+  );
+  ```
+
+  In your component:
+
+  ```jsx
+  import { useSelector } from 'native-state-react';
+
+  function App() {
+    const [name, setState] = useSelector(s => s.name);
+
+    const updateName = () => {
+      setState({ name: "George" });
+    };
+
+    return (
+      <div>
+        <p>Name: {name}</p>
+        <button onClick={updateName}>Update Name</button>
+      </div>
+    );
+  }
+  ```
+
+  ## API
+
+  ### `<Root>`
+
+  The root component that provides the global state context.
+
+  - `initial`: (optional) Object - The initial state. Defaults to an empty object `{}`.
+
+  ### `useSelector(selector)`
+
+  Hook to select a slice of the global state.
+
+  - `selector`: Function - A function that takes the state and returns the desired slice.
+
+  Returns: `[value, setState]`
+
+  - `value`: The current value of the selected slice. `undefined` if the slice doesn't exist.
+  - `setState`: Function to update the global state by merging the provided object.
+
+  **Note**: `setState` merges the provided object into the global state. It can update any part of the state, not just the selected slice.
+
+  ## Advanced Example
+
+  ```jsx
+  import { useSelector } from 'native-state-react';
+  import { useEffect } from 'react';
+
+  function ClassComponent() {
+    const [schoolClass, setState] = useSelector(s => s.school?.class);
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setState({ school: { class: "1A" } });
+      }, 3000);
+      return () => clearTimeout(timer);
+    }, []);
+
+    return <div>Class: {schoolClass}</div>;
+  }
+  ```
+
+  This updates the `school.class` after 3 seconds, and the component will re-render.
+
+</details>
+</div>
+

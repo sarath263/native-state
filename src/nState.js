@@ -42,9 +42,6 @@ export const useNativeSelector = (selector) => {
   );
 };
 
-
-
-
 function getValueByPath(obj, keys) {
   //  Drill down into the object
   return keys.reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);

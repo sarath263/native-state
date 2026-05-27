@@ -1,53 +1,118 @@
+
 import {
   useCallback,
+  useEffect,
   useSyncExternalStore,
+  useMemo,
+  useRef,
 } from "react";
 
 const initialState = {};
 const listeners = new Set();
-let s = initialState,
-  setS = (newState = {}) => {
-    s = Object.assign({}, s, newState);
-    listeners.forEach((listener) => listener());
-  }, 
-  first=true;
+let s = initialState;
+let first = true;
 
-export function Root({ children, initial = initialState }) {
-  if(first){
-    s=initial;
+const subscribe = (callback) => {
+  listeners.add(callback);
+  return () => listeners.delete(callback);
+};
+
+export function Root({ children = null, initial = initialState }) {
+  if (first) {
+    s = initial;
     listeners.forEach((l) => l());
-    first=false;
-    setS=useCallback((newS = {}) => {
-      s = Object.assign({}, s, newS);
-      listeners.forEach((l) => l());
-    }, []);
+    first = false;
   }
-  return null;
+  return children;
 }
 
-export const useSelector = (selector) => {
-  selector = useCallback(selector, []);
-  const subscribe = useCallback((callback) => {
-    listeners.add(callback);
-    return () => listeners.delete(callback);
-  }, []);
-  const sliced = useSyncExternalStore(
-    subscribe,
-    () => {
-      try {
-        return selector(s);
-      } catch (error) {
-        return undefined;
-      }
-    },
-    () => {
-      try {
-        return selector(s);
-      } catch (error) {
-        return undefined;
-      }
+export const useNativeSelector = (selector) => {
+  const getSnapshot = useCallback(() => {
+    try {
+      return selector(s);
+    } catch (error) {
+      return undefined;
     }
-  );
+  }, [selector]);
 
-  return [sliced, setS];
+  return useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getSnapshot
+  );
 };
+
+
+
+
+function getValueByPath(obj, keys) {
+  //  Drill down into the object
+  return keys.reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);
+}
+
+export const useNativeState = (selector, val = undefined) => {
+  try {
+    const keys = useMemo(() => {
+      return selector.replace(/\[(\d+)\]/g, '.$1').split('.');
+    }, [selector]);
+
+    const setSlice = useCallback((newVal = {}) => {
+      if (keys.length > 1) {
+        let slicedS = Object.assign({}, s);
+        let slice = slicedS;
+        slice = getValueByPath(slice, keys.slice(1, -1));
+        if (slice) {
+          slice[keys[keys.length - 1]] = newVal;
+        } else {
+          throw Error(selector.replace(/(\[|\.)[^.\[\]]+\]?$/, '') + " not found");
+        }
+        s = slicedS;
+        listeners.forEach((l) => l());
+      } else {
+        s = Object.assign({}, s, newVal);
+        listeners.forEach((l) => l());
+      }
+    }, [keys, selector]);
+
+    const accessor = useCallback((state) => {
+      if (keys.length > 1) {
+        let slice = { ...state }
+        slice = getValueByPath(slice, keys.slice(1));
+        return slice;
+      }
+      return state;
+    }, [keys]);
+
+    const isInitialized = useRef(false);
+    useEffect(function () {
+      if (val !== undefined && !isInitialized.current) {
+        const currentVal = keys.length > 1 ? getValueByPath(s, keys.slice(1)) : s;
+        if (currentVal === undefined) {
+          setSlice(val);
+        }
+        isInitialized.current = true;
+      }
+    }, [val, keys, setSlice]);
+
+
+    const getSnapshot = useCallback(() => {
+      try {
+        return accessor(s);
+      } catch (error) {
+        return undefined;
+      }
+    }, [accessor]);
+
+    const sliced = useSyncExternalStore(
+      subscribe,
+      getSnapshot,
+      getSnapshot
+    );
+
+    return [sliced, setSlice];
+
+  } catch (error) {
+    throw Error(`Some error occured. Check the useNativeState parameters passed. Make sure <Root/> is intialised.`);
+  }
+};
+

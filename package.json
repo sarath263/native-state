@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" ",
     "start": "react-scripts start",
-    "build": "babel index.js --out-dir dist"
+    "build:cjs": "babel src/nState.js --out-file cjs/native-state.dev.js && babel src/nState.js --out-file cjs/native-state.prod.min.js",
+    "build": "npm run build:cjs && babel index.js --out-dir dist"
   },
   "repository": {
     "type": "git",

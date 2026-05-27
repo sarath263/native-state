@@ -1,20 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
-import { useSelector } from 'native-state-react';
+import { useNativeState } from 'native-state-react';
 import { useEffect } from 'react';
 import Another from './Another';
 
 function App() {
-  const [name,setState] = useSelector(s=>s.name);
-  useEffect(()=>{
+  const [name, setName] = useNativeState('s.name');
+  const [school, setSchool] = useNativeState('s.school');
+  useEffect(() => {
     setTimeout(() => {
-      setState({name:"George"});
+      setName("George");
     }, 3000);
 
     setInterval(() => {
-      setState({school:{time:new Date().toISOString(),class:"V"}});
+      setSchool({ time: new Date().toISOString(), class: "V" });
     }, 5000);
-  },[]);
+  }, [setName, setSchool]);
   return (
     <div className="App">
       <header className="App-header">
@@ -22,7 +23,7 @@ function App() {
         <p>
           Hi <code>{name || "NA"}</code> .
         </p>
-        <Another/>
+        <Another />
       </header>
     </div>
   );

@@ -8,7 +8,7 @@ import { Root } from 'native-state-react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Root/>
+    <Root />
     <App />
   </React.StrictMode>
 );

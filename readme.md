@@ -109,7 +109,7 @@ The root component that initializes the global state store.
 Hook to read and write a specific slice of the global state using string path notation.
 
 - `pathString`: **String** - The path to select in the global state, starting with `'state'` or `'s'` (e.g. `'s.name'`, `'state.school.class'`, `'s.todos[0].title'`, `'state.school.class.student[21]'`).
-- `initialVal`: (**optional**) Any - The value to initialize/update the value in the `pathString`.
+- `initialVal`: (**optional**) Any - The value to initialize/update in the `pathString`.
 
 
 Returns: `[value, setValue]`
@@ -119,7 +119,7 @@ Returns: `[value, setValue]`
 <br/>
 
 > [!WARNING]
-> if `pathString` is `s.todos[0].title` , `s.todos[0]` must exist in the global state so that it can set `title`
+> if `pathString` is `s.todos[0].title` , `s.todos[0]` must exist in the global state so that it can retrieve/set `title`
 <br/>
 
 ### `useNativeSelector(selectorFunction)`

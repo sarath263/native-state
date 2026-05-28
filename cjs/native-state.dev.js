@@ -37,13 +37,25 @@ function Root(_ref) {
   return children;
 }
 var useNativeSelector = exports.useNativeSelector = function useNativeSelector(selector) {
+  var keys = (0, _react.useMemo)(function () {
+    if (typeof selector === "string") {
+      return selector.replace(/\[(\d+)\]/g, '.$1').split('.');
+    }
+    return null;
+  }, [selector]);
   var getSnapshot = (0, _react.useCallback)(function () {
     try {
-      return selector(s);
+      if (typeof selector === "function") {
+        return selector(s);
+      }
+      if (keys && keys.length > 1) {
+        return getValueByPath(s, keys.slice(1));
+      }
+      return s;
     } catch (error) {
       return undefined;
     }
-  }, [selector]);
+  }, [selector, keys]);
   return (0, _react.useSyncExternalStore)(subscribe, getSnapshot, getSnapshot);
 };
 function getValueByPath(obj, keys) {

@@ -25,13 +25,26 @@ export function Root({ children = null, initial = initialState }) {
 }
 
 export const useNativeSelector = (selector) => {
+  const keys = useMemo(() => {
+    if (typeof selector === "string") {
+      return selector.replace(/\[(\d+)\]/g, '.$1').split('.');
+    }
+    return null;
+  }, [selector]);
+
   const getSnapshot = useCallback(() => {
     try {
-      return selector(s);
+      if (typeof selector === "function") {
+        return selector(s);
+      }
+      if (keys && keys.length > 1) {
+        return getValueByPath(s, keys.slice(1));
+      }
+      return s;
     } catch (error) {
       return undefined;
     }
-  }, [selector]);
+  }, [selector, keys]);
 
   return useSyncExternalStore(
     subscribe,

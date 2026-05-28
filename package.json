@@ -1,6 +1,6 @@
 {
   "name": "native-state-react",
-  "version": "3.0.2",
+  "version": "3.0.5",
   "description": "Very lightweight and efficient implementation for react global state,just using react hooks. Magic ! ",
   "main": "index.js",
   "scripts": {

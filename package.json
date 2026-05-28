@@ -1,7 +1,7 @@
 {
   "name": "native-state-react",
-  "version": "3.0.0",
-  "description": "Very lightweight and most efficient implementation for react global state,just using react hooks. Magic ! ",
+  "version": "3.0.1",
+  "description": "Very lightweight and efficient implementation for react global state,just using react hooks. Magic ! ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" ",

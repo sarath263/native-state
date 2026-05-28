@@ -1,10 +1,8 @@
 
 import {
   useCallback,
-  useEffect,
   useSyncExternalStore,
   useMemo,
-  useRef,
 } from "react";
 
 const initialState = {};
@@ -80,16 +78,15 @@ export const useNativeState = (selector, val = undefined) => {
       return state;
     }, [keys]);
 
-    const isInitialized = useRef(false);
-    useEffect(function () {
-      if (val !== undefined && !isInitialized.current) {
-        const currentVal = keys.length > 1 ? getValueByPath(s, keys.slice(1)) : s;
-        if (currentVal === undefined) {
-          setSlice(val);
-        }
-        isInitialized.current = true;
+
+    if (val !== undefined && first === false) {
+      first = undefined;
+      const currentVal = keys.length > 1 ? getValueByPath(s, keys.slice(1)) : s;
+      if (currentVal === undefined) {
+        setSlice(val);
       }
-    }, [val, keys, setSlice]);
+    }
+
 
 
     const getSnapshot = useCallback(() => {

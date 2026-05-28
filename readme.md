@@ -1,3 +1,4 @@
+
 <div align="center">
   <h1>
     <br/>
@@ -36,7 +37,7 @@
 
 </div>
 
-## Features
+## Features 
 
 - **Efficient Rendering**: Components re-render only when the selected state slice changes.
 - **No External Dependencies**: Uses only React's built-in hooks.
@@ -50,7 +51,7 @@
 
 2. Use `useNativeState` or `useNativeSelector` in your components to read and update global state.
 
-## If you are using version 2.0.* or lower [`See documentation below`](#footer)
+### If you are using version 2.0.* or lower  [See documentation below](#footer)
 
 ### Basic Example
 
@@ -124,6 +125,8 @@ Returns: `value`
 
 - `value`: The read-only value of the selected state slice.
 
+
+
 ## Advanced Example
 
 ### At App level initialization
@@ -179,6 +182,7 @@ function ClassComponent() {
   );
 }
 ```
+> **I have put a lot of effort and time into this project. If you like this, please do star this repository.**
 
 ## Examples
 

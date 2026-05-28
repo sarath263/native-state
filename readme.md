@@ -51,7 +51,7 @@
 
 2. Use `useNativeState` or `useNativeSelector` in your components to read and update global state.
 
-### If you are using version 2.0.* or lower  [See documentation below](#footer)
+### If you are using version 2.0.x or lower  [See documentation below](#footer)
 
 ### Basic Example
 
@@ -102,18 +102,25 @@ The root component that initializes the global state store.
 
 - `initial`: (optional) Object - The initial state. Defaults to an empty object `{}`.
 - `children`: (optional) React Nodes - Children to render inside `<Root>`.
+<br/>
 
 ### `useNativeState(pathString, initialVal)`
 
 Hook to read and write a specific slice of the global state using string path notation.
 
-- `pathString`: String - The path to select in the global state, starting with `'s'` (e.g. `'s.name'`, `'s.school.class'`, `'s.todos[0].title'`).
-- `initialVal`: (optional) Any - The value to initialize the path with on-mount if it is currently `undefined`.
+- `pathString`: **String** - The path to select in the global state, starting with `'state'` or `'s'` (e.g. `'s.name'`, `'state.school.class'`, `'s.todos[0].title'`, `'state.school.class.student[21]'`).
+- `initialVal`: (**optional**) Any - The value to initialize/update the value in the `pathString`.
+
 
 Returns: `[value, setValue]`
 
 - `value`: The current value at the specified path.
 - `setValue`: Function to update the value of this specific path.
+<br/>
+
+> [!WARNING]
+> if `pathString` is `s.todos[0].title` , `s.todos[0]` must exist in the global state so that it can set `title`
+<br/>
 
 ### `useNativeSelector(selectorFunction)`
 
@@ -125,6 +132,7 @@ Returns: `value`
 
 - `value`: The read-only value of the selected state slice.
 
+<br/>
 
 
 ## Advanced Example
@@ -182,7 +190,11 @@ function ClassComponent() {
   );
 }
 ```
-> **I have put a lot of effort and time into this project. If you like this, please do star this repository.**
+<br/>
+<br/>
+
+> [!IMPORTANT]
+> **Thanks for reading this much.  I am glad that you are using this. If you like this, please do ⭐ this repository.**
 
 ## Examples
 
@@ -190,7 +202,7 @@ See the `example` folder for a complete React project implementation demonstrati
 
 ---
 
-## Documentation (Versions &lt;= 2.0.*)
+## Documentation for versions &lt;= 2.0.x
 <div id="footer">
 <details >
   <summary><b>📖 Legacy Versions &lt;= 2.0.x </b></summary>

@@ -88,16 +88,13 @@ var useNativeState = exports.useNativeState = function useNativeState(selector) 
       }
       return state;
     }, [keys]);
-    var isInitialized = (0, _react.useRef)(false);
-    (0, _react.useEffect)(function () {
-      if (val !== undefined && !isInitialized.current) {
-        var currentVal = keys.length > 1 ? getValueByPath(s, keys.slice(1)) : s;
-        if (currentVal === undefined) {
-          setSlice(val);
-        }
-        isInitialized.current = true;
+    if (val !== undefined && first === false) {
+      first = undefined;
+      var currentVal = keys.length > 1 ? getValueByPath(s, keys.slice(1)) : s;
+      if (currentVal === undefined) {
+        setSlice(val);
       }
-    }, [val, keys, setSlice]);
+    }
     var getSnapshot = (0, _react.useCallback)(function () {
       try {
         return accessor(s);

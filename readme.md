@@ -1,3 +1,4 @@
+
 <div align="center">
   <h1>
     <br/>
@@ -36,7 +37,7 @@
 
 </div>
 
-## Features
+## Features 
 
 - **Efficient Rendering**: Components re-render only when the selected state slice changes.
 - **No External Dependencies**: Uses only React's built-in hooks.
@@ -50,7 +51,7 @@
 
 2. Use `useNativeState` or `useNativeSelector` in your components to read and update global state.
 
-## If you are using version 2.0.* or lower [`See documentation below`](#footer)
+### If you are using version 2.0.x or lower  [See documentation below](#footer)
 
 ### Basic Example
 
@@ -92,7 +93,7 @@ function App() {
   );
 }
 ```
-#### See running [Demo Here](https://stackblitz.com/edit/vitejs-vite-upyzhxje?file=src%2FApp.jsx) 
+#### See running [Demo Here](https://stackblitz.com/edit/native-state-react?file=src%2FApp.jsx) 
 ## API
 
 ### `<Root>`
@@ -101,18 +102,25 @@ The root component that initializes the global state store.
 
 - `initial`: (optional) Object - The initial state. Defaults to an empty object `{}`.
 - `children`: (optional) React Nodes - Children to render inside `<Root>`.
+<br/>
 
 ### `useNativeState(pathString, initialVal)`
 
 Hook to read and write a specific slice of the global state using string path notation.
 
-- `pathString`: String - The path to select in the global state, starting with `'s'` (e.g. `'s.name'`, `'s.school.class'`, `'s.todos[0].title'`).
-- `initialVal`: (optional) Any - The value to initialize the path with on-mount if it is currently `undefined`.
+- `pathString`: **String** - The path to select in the global state, starting with `'state'` or `'s'` (e.g. `'s.name'`, `'state.school.class'`, `'s.todos[0].title'`, `'state.school.class.student[21]'`).
+- `initialVal`: (**optional**) Any - The value to initialize in the `pathString`. Note that if `pathString` is already initialized or has value set, it will NOT be updated/initilized again, you may cal set method to update the value.
+
 
 Returns: `[value, setValue]`
 
 - `value`: The current value at the specified path.
 - `setValue`: Function to update the value of this specific path.
+<br/>
+
+> [!WARNING]
+> if `pathString` is `s.todos[0].title` , `s.todos[0]` must exist in the global state so that it can retrieve/set `title`
+<br/>
 
 ### `useNativeSelector(selectorFunction)`
 
@@ -123,6 +131,9 @@ A highly optimized read-only hook that subscribes to state slices. Components us
 Returns: `value`
 
 - `value`: The read-only value of the selected state slice.
+
+<br/>
+
 
 ## Advanced Example
 
@@ -179,6 +190,11 @@ function ClassComponent() {
   );
 }
 ```
+<br/>
+<br/>
+
+> [!IMPORTANT]
+> **Thanks for reading this much.  I am glad that you are using this. If you like this, please do ⭐ this repository.**
 
 ## Examples
 
@@ -186,7 +202,7 @@ See the `example` folder for a complete React project implementation demonstrati
 
 ---
 
-## Documentation (Versions &lt;= 2.0.*)
+## Documentation for versions &lt;= 2.0.x
 <div id="footer">
 <details >
   <summary><b>📖 Legacy Versions &lt;= 2.0.x </b></summary>
@@ -293,5 +309,4 @@ See the `example` folder for a complete React project implementation demonstrati
 ## BENCHMARK TEST RUN 
 Code used to run benchmark will be added to benchmarks folder soon. 
 
-<img width="871" height="738" alt="image" src="https://github.com/user-attachments/assets/c6931769-05d5-4bbf-a69a-a54625cd71fa" />
-
+<img width="780" height="747" alt="image" src="https://github.com/user-attachments/assets/d1aab014-aa6f-4219-b95a-a2ad7fffe421" />

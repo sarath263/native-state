@@ -72,8 +72,8 @@ root.render(
 
 > [!NOTE]
 > Wrap your `<App />` inside `<Root>` (or render `<Root />` as a top-level sibling component) to initialize your global state.
-
-In your component:
+<br/>
+Then, in your component:
 
 ```jsx
 import { useNativeState } from 'native-state-react';

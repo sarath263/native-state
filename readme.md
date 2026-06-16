@@ -309,4 +309,5 @@ See the `example` folder for a complete React project implementation demonstrati
 ## BENCHMARK TEST RUN 
 Code used to run benchmark will be added to benchmarks folder soon. 
 
-<img width="780" height="747" alt="image" src="https://github.com/user-attachments/assets/d1aab014-aa6f-4219-b95a-a2ad7fffe421" />
+<img width="1162" height="824" alt="Screenshot 2026-06-16 150927" src="https://github.com/user-attachments/assets/ee24e908-f84e-4ac9-ad9c-9a1b5936aca5" />
+

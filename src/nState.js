@@ -9,7 +9,7 @@ const pendingCallbacks = new Set();
 let updateScheduled = false;
 
 const flushNotifications = () => {
-    const callbacks = Array.from(pendingCallbacks); pendingCallbacks.clear();
+    updateScheduled = false; const callbacks = Array.from(pendingCallbacks); pendingCallbacks.clear();
     for (let i = 0; i < callbacks.length; i++) callbacks[i]();
 };
 
@@ -67,15 +67,15 @@ function getMeta(selector) {
 }
 
 export const useNativeSelector = (selector) => {
-    const meta = useMemo(() => getMeta(selector), [selector]);
+    const meta = getMeta(selector);
     const fnFlag = typeof selector === "function";
-    const getSnapshot = useCallback(() => {
+    const getSnapshot = () => {
         try {
             if (fnFlag) return selector(s);
             if (meta && meta.hasMultipleKeys) return meta.get(s);
             return s;
         } catch (error) { return undefined; }
-    }, [selector, meta]);
+    }//useCallback(, [selector, meta]);
     const customSubscribe = useCallback((callback) => fnFlag ? subscribeFn(selector, callback) : subscribe(selector, callback), [selector]);
     return useSyncExternalStore(customSubscribe, getSnapshot, getSnapshot);
 };

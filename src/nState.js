@@ -9,7 +9,7 @@ const pendingCallbacks = new Set();
 let updateScheduled = false;
 
 const flushNotifications = () => {
-    const callbacks = Array.from(pendingCallbacks); pendingCallbacks.clear();
+    updateScheduled = false; const callbacks = Array.from(pendingCallbacks); pendingCallbacks.clear();
     for (let i = 0; i < callbacks.length; i++) callbacks[i]();
 };
 

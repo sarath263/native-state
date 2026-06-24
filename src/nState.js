@@ -67,15 +67,15 @@ function getMeta(selector) {
 }
 
 export const useNativeSelector = (selector) => {
-    const meta = getMeta(selector);
+    const meta = useMemo(() => getMeta(selector), [selector]);
     const fnFlag = typeof selector === "function";
-    const getSnapshot = () => {
+    const getSnapshot = useCallback(() => {
         try {
             if (fnFlag) return selector(s);
             if (meta && meta.hasMultipleKeys) return meta.get(s);
             return s;
         } catch (error) { return undefined; }
-    }//useCallback(, [selector, meta]);
+    }, [selector, meta]);
     const customSubscribe = useCallback((callback) => fnFlag ? subscribeFn(selector, callback) : subscribe(selector, callback), [selector]);
     return useSyncExternalStore(customSubscribe, getSnapshot, getSnapshot);
 };

@@ -79,7 +79,7 @@ Then, in your component:
 import { useNativeState } from 'native-state-react';
 
 function App() {
-  const [name, setName] = useNativeState('s.name');
+  const [name, setName] = useNativeState('s.name','First name');
 
   const updateName = () => {
     setName("George");

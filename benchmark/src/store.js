@@ -23,10 +23,11 @@ export const initialComplexState = {
   }
 };
 
-const reducer = (state = { count: 0, complex: initialComplexState }, action) => {
+const reducer = (state = { count: 0, reduxCount: 0, complex: initialComplexState }, action) => {
   if (action.type === 'INC') return { ...state, count: state.count + 1 };
+  if (action.type === 'SET') return { ...state, reduxCount: action?.val || 0 };
   if (action.type === 'RESET') return { ...state, count: 0 };
-  
+
   if (action.type === 'COMPLEX_UPDATE') {
     return {
       ...state,
@@ -49,7 +50,7 @@ const reducer = (state = { count: 0, complex: initialComplexState }, action) => 
       }
     };
   }
-  
+
   if (action.type === 'COMPLEX_RESET') {
     return {
       ...state,
@@ -58,7 +59,7 @@ const reducer = (state = { count: 0, complex: initialComplexState }, action) => 
       }
     };
   }
-  
+
   return state;
 };
 

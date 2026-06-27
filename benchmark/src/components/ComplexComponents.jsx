@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 export function ComplexNativeCounter({ id }) {
   const [val] = useNativeState('s.complex.counters.nested.deep.val', 0);
-  
+
   return (
     <div className="sub-card">
       <span className="sub-label">Nested Val #{id} (Deep)</span>
@@ -29,7 +29,7 @@ export function ComplexNativeItems({ id }) {
           {info?.active ? 'Active' : 'Inactive'}
         </span>
       </div>
-      
+
       <div className="complex-list">
         {items && items.map((item) => (
           <div key={item.id} className="complex-item">
@@ -39,7 +39,7 @@ export function ComplexNativeItems({ id }) {
           </div>
         ))}
       </div>
-      
+
       <div className="complex-footer">
         <span className="sub-label">Calculated Sum (fn):</span>
         <span className="sub-count highlight">{totalScore}</span>
@@ -52,7 +52,7 @@ export function ComplexNativeItems({ id }) {
 
 export function ComplexReduxCounter({ id }) {
   const val = useSelector(s => s.complex?.counters?.nested?.deep?.val ?? 0);
-  
+
   return (
     <div className="sub-card">
       <span className="sub-label">Nested Val #{id} (Deep)</span>
@@ -76,7 +76,7 @@ export function ComplexReduxItems({ id }) {
           {info?.active ? 'Active' : 'Inactive'}
         </span>
       </div>
-      
+
       <div className="complex-list">
         {items.map((item) => (
           <div key={item.id} className="complex-item">
@@ -86,7 +86,7 @@ export function ComplexReduxItems({ id }) {
           </div>
         ))}
       </div>
-      
+
       <div className="complex-footer">
         <span className="sub-label">Calculated Sum (fn):</span>
         <span className="sub-count highlight">{totalScore}</span>

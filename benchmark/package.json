@@ -10,11 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "native-state-react": "^3.1.2",
+    "native-state-react": "git+https://github.com/sarath263/native-state.git#main",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-redux": "^9.3.0",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

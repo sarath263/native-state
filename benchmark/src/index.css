@@ -8,6 +8,8 @@
   --primary-glow: rgba(150, 75, 255, 0.3);
   --accent: hsl(185, 95%, 48%);
   --accent-glow: rgba(6, 214, 255, 0.2);
+  --zustand: hsl(25, 95%, 55%);
+  --zustand-glow: rgba(255, 100, 0, 0.25);
   --text: #f1f0f7;
   --muted: #9f9bad;
   --r-lg: 24px;
@@ -62,7 +64,7 @@ h1 {
   display: flex;
   gap: 6px;
   margin-bottom: 10px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: var(--r-sm);
   padding: 4px;
 }
@@ -82,7 +84,7 @@ h1 {
 }
 
 .tab-btn.active {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   color: var(--text);
 }
 
@@ -101,7 +103,8 @@ h1 {
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   padding: 14px;
-  width: 48vw;
+  flex: 1;
+  min-width: 0;
 }
 
 .native-card {
@@ -110,6 +113,10 @@ h1 {
 
 .redux-card {
   border-top: 3px solid var(--accent);
+}
+
+.zustand-card {
+  border-top: 3px solid var(--zustand);
 }
 
 h2 {
@@ -168,6 +175,10 @@ h2 {
   background: linear-gradient(90deg, var(--accent), hsl(200, 90%, 60%));
 }
 
+.zustand-fill {
+  background: linear-gradient(90deg, var(--zustand), hsl(40, 90%, 60%));
+}
+
 .sub-label {
   color: var(--muted);
   font-size: 12px;
@@ -195,6 +206,11 @@ h2 {
 .redux-badge {
   background: rgba(6, 214, 255, 0.12);
   color: var(--accent);
+}
+
+.zustand-badge {
+  background: rgba(255, 120, 0, 0.12);
+  color: var(--zustand);
 }
 
 .badge-hot {
@@ -278,6 +294,10 @@ button {
   color: var(--primary);
 }
 
+.zustand-card .highlight {
+  color: var(--zustand);
+}
+
 .chart-section {
   margin-top: 24px;
   text-align: center;
@@ -327,6 +347,11 @@ h3 {
   box-shadow: 0 -4px 12px var(--accent-glow);
 }
 
+.zustand-bar {
+  background: linear-gradient(180deg, var(--zustand) 0%, rgba(255, 100, 0, 0.1) 100%);
+  box-shadow: 0 -4px 12px var(--zustand-glow);
+}
+
 .bar-label {
   font-size: 11px;
   color: var(--muted);
@@ -353,7 +378,7 @@ h3 {
 }
 
 .complex-item {
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 6px;
   padding: 5px 8px;
   font-size: 12px;
@@ -378,11 +403,19 @@ h3 {
   color: hsl(145, 80%, 55%);
 }
 
+.orange {
+  color: #ef8701;
+}
+
 /* Mobile layout */
 @media (max-width: 600px) {
-  body { padding: 8px; }
+  body {
+    padding: 8px;
+  }
 
-  .app-container { padding: 16px 12px; }
+  .app-container {
+    padding: 16px 12px;
+  }
 
   .metrics-grid {
     flex-direction: column;
@@ -397,5 +430,7 @@ h3 {
     gap: 12px;
   }
 
-  h1 { font-size: 22px; }
+  h1 {
+    font-size: 22px;
+  }
 }

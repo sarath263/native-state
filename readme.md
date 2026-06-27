@@ -47,7 +47,7 @@
 
 ## Quick Start
 
-1. Wrap your app with the `<Root>` component at the top level, optionally providing the initial state.
+1. Add your app with the `<Root>` component at the top level, optionally providing the initial state.
 
 2. Use `useNativeState` or `useNativeSelector` in your components to read and update global state.
 

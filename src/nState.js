@@ -92,9 +92,11 @@ export const useNativeState = (selector, val = undefined) => {
             else { throw Error(selector.replace(/(\[|\.)[^.\[\]]+\]?$/, '') + " not found"); }
             s = slicedS;
             notifyUpdate(selector);
+            debugState(s);
         } else {
             s = { ...s, ...newVal };
             notifyUpdate();
+            debugState(s);
         }
     }, [meta, selector]);
 
@@ -113,3 +115,20 @@ export const useNativeState = (selector, val = undefined) => {
     const sliced = useSyncExternalStore(customSubscribe, getSnapshot, getSnapshot);
     return [sliced, setSlice];
 };
+
+const debugState=async (currentState=null)=>{
+    const isLocalhost = typeof window !== 'undefined' && Boolean(
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '[::1]' || // IPv6 localhost
+        window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/) // IPv4 127.0.0.1 - 127.255.255.254
+    );
+    if (isLocalhost || (
+        process && typeof window !== 'undefined' && 
+        (process?.env?.NODE_ENV == 'dev' || process?.env?.NODE_ENV == 'development')
+    )) {
+        window.GLOBAL_STATE = currentState || s;
+    }
+}
+if(typeof window !== 'undefined'){
+    window.GLOBAL_STATE = s;
+}

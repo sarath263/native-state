@@ -1,9 +1,10 @@
 {
   "name": "native-state-react",
   "version": "3.1.9",
-  "description": "Very lightweight and efficient implementation for react global state, just using react hooks. Magic ! ",
+  "description": "Global state for React using only built-in hooks — ~115 lines, zero dependencies. String-path selectors (s.user.name, s.todos[0].done) with surgical re-rendering via useSyncExternalStore. React Native compatible.",
   "main": "index.js",
   "license":"SEE LICENSE IN LICENSE",
+  "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" ",
     "start": "react-scripts start",
@@ -16,15 +17,29 @@
   },
   "keywords": [
     "react",
+    "react-native",
     "react state",
     "react global state",
     "global state",
+    "global state management",
+    "state management",
     "native state",
     "state",
-    "state management",
+    "hooks",
+    "react hooks",
+    "use-sync-external-store",
+    "selector",
+    "string path",
+    "lightweight",
+    "tiny",
+    "zero-dependency",
+    "no-dependencies",
+    "micro",
     "redux",
     "react-redux",
-    "mobx"
+    "mobx",
+    "zustand",
+    "jotai"
   ],
   "peerDependencies": {
     "react": "^18.2.0",

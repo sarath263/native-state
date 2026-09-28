@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" role="img" aria-label="The consequence of use: less code, fewer dependencies, surgical re-renders">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#161b22"/>
+    </linearGradient>
+    <style>
+      .t { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+      .m { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="720" fill="url(#bg)"/>
+
+  <text x="60" y="74" class="t" fill="#e6edf3" font-size="34" font-weight="700">The consequence of use</text>
+  <text x="60" y="108" class="t" fill="#8b949e" font-size="18">Same app state. Same updates. One path is a framework; the other is just React.</text>
+
+  <!-- LEFT: without -->
+  <g>
+    <rect x="60" y="140" width="520" height="520" rx="16" fill="#1a1012" stroke="#f85149" stroke-opacity="0.45" stroke-width="1.5"/>
+    <text x="88" y="180" class="t" fill="#f85149" font-size="21" font-weight="600">Without native-state</text>
+    <text x="88" y="204" class="m" fill="#8b949e" font-size="13.5">store → actions → reducers → middleware → immer</text>
+
+    <!-- boilerplate lines -->
+    <g class="m" font-size="15">
+      <text x="88" y="248" fill="#e6edf3">const slice = createSlice({</text>
+      <text x="106" y="272" fill="#6e7681">name: 'user',</text>
+      <text x="106" y="296" fill="#6e7681">initialState: { name: 'Mary' },</text>
+      <text x="106" y="320" fill="#6e7681">reducers: {</text>
+      <text x="124" y="344" fill="#6e7681">rename(state, action) {</text>
+      <text x="142" y="368" fill="#6e7681">state.name = action.payload;</text>
+      <text x="124" y="392" fill="#6e7681">},</text>
+      <text x="106" y="416" fill="#6e7681">},</text>
+      <text x="88" y="440" fill="#e6edf3">});</text>
+      <text x="88" y="476" fill="#6e7681">// then: Provider, useDispatch,</text>
+      <text x="88" y="500" fill="#6e7681">//       useSelector, configureStore…</text>
+    </g>
+
+    <!-- dependency chips -->
+    <g class="t">
+      <rect x="88" y="560" width="132" height="30" rx="15" fill="#2a1518" stroke="#f85149" stroke-opacity="0.5"/>
+      <text x="154" y="580" fill="#f85149" font-size="14" font-weight="600" text-anchor="middle">4+ dependencies</text>
+      <rect x="232" y="560" width="150" height="30" rx="15" fill="#2a1518" stroke="#f85149" stroke-opacity="0.5"/>
+      <text x="307" y="580" fill="#f85149" font-size="14" font-weight="600" text-anchor="middle">boilerplate + wiring</text>
+    </g>
+  </g>
+
+  <!-- RIGHT: with -->
+  <g>
+    <rect x="620" y="140" width="520" height="520" rx="16" fill="#101d14" stroke="#3fb950" stroke-opacity="0.55" stroke-width="1.5"/>
+    <text x="648" y="180" class="t" fill="#3fb950" font-size="21" font-weight="600">With native-state-react</text>
+    <text x="648" y="204" class="m" fill="#8b949e" font-size="13.5">one store, one hook, one line of intent</text>
+
+    <!-- minimal code -->
+    <g class="m" font-size="15">
+      <text x="648" y="248" fill="#e6edf3">function Profile() {</text>
+      <text x="666" y="276" fill="#3fb950">const [name, setName] =</text>
+      <text x="684" y="300" fill="#61dafb">useNativeState('s.user.name', 'Mary');</text>
+      <text x="648" y="340" fill="#6e7681">return (</text>
+      <text x="666" y="364" fill="#6e7681">&lt;p&gt;Hello, {name}&lt;/p&gt;</text>
+      <text x="684" y="388" fill="#6e7681">&lt;button onClick={() =&gt;</text>
+      <text x="702" y="412" fill="#6e7681">setName('George')}&gt;Rename&lt;/button&gt;</text>
+      <text x="648" y="452" fill="#e6edf3">);</text>
+      <text x="648" y="476" fill="#e6edf3">}</text>
+    </g>
+
+    <!-- consequence chips -->
+    <g class="t">
+      <rect x="648" y="528" width="118" height="30" rx="15" fill="#12261a" stroke="#3fb950" stroke-opacity="0.6"/>
+      <text x="707" y="548" fill="#3fb950" font-size="14" font-weight="600" text-anchor="middle">0 deps</text>
+      <rect x="778" y="528" width="118" height="30" rx="15" fill="#0c1c2b" stroke="#61dafb" stroke-opacity="0.6"/>
+      <text x="837" y="548" fill="#61dafb" font-size="14" font-weight="600" text-anchor="middle">~115 lines</text>
+      <rect x="908" y="528" width="188" height="30" rx="15" fill="#1c1a10" stroke="#d29922" stroke-opacity="0.6"/>
+      <text x="1002" y="548" fill="#d29922" font-size="14" font-weight="600" text-anchor="middle">surgical re-renders</text>
+    </g>
+
+    <text x="648" y="620" class="t" fill="#8b949e" font-size="15">Only the component reading <tspan class="m" fill="#61dafb">s.user.name</tspan> re-renders when it changes.</text>
+  </g>
+</svg>

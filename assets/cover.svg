@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="native-state-react — global state for React, using only React">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#161b22"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.2" r="0.55">
+      <stop offset="0" stop-color="#61dafb" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#61dafb" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#61dafb"/>
+      <stop offset="1" stop-color="#3fb950"/>
+    </linearGradient>
+    <style>
+      .t { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+      .m { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#30363d" stroke-opacity="0.35" stroke-width="1">
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- top chips -->
+  <g class="t">
+    <rect x="40" y="44" width="150" height="30" rx="15" fill="#12261a" stroke="#3fb950" stroke-opacity="0.6"/>
+    <text x="115" y="64" fill="#3fb950" font-size="15" font-weight="600" text-anchor="middle">0 dependencies</text>
+
+    <rect x="204" y="44" width="132" height="30" rx="15" fill="#0c1c2b" stroke="#61dafb" stroke-opacity="0.6"/>
+    <text x="270" y="64" fill="#61dafb" font-size="15" font-weight="600" text-anchor="middle">~115 lines</text>
+
+    <rect x="350" y="44" width="180" height="30" rx="15" fill="#1c1a10" stroke="#d29922" stroke-opacity="0.6"/>
+    <text x="440" y="64" fill="#d29922" font-size="15" font-weight="600" text-anchor="middle">React Native ready</text>
+  </g>
+
+  <!-- title -->
+  <text x="60" y="180" class="t" fill="#e6edf3" font-size="72" font-weight="700" letter-spacing="-1">native-state-react</text>
+
+  <!-- underline accent -->
+  <rect x="62" y="206" width="300" height="5" rx="2.5" fill="url(#accent)"/>
+
+  <!-- subtitle -->
+  <text x="60" y="260" class="t" fill="#8b949e" font-size="30" font-weight="400">Global state for React, using only React.</text>
+  <text x="60" y="300" class="t" fill="#6e7681" font-size="20" font-weight="400">No Redux, no Zustand, no Context boilerplate — string-path selectors, surgical re-renders.</text>
+
+  <!-- store → slices → hook diagram -->
+  <g>
+    <!-- store node -->
+    <rect x="60" y="360" width="280" height="64" rx="12" fill="#0c1c2b" stroke="#61dafb" stroke-width="2"/>
+    <text x="200" y="388" class="t" fill="#61dafb" font-size="18" font-weight="600" text-anchor="middle">single global store</text>
+    <text x="200" y="410" class="m" fill="#8b949e" font-size="13" text-anchor="middle">{ ...plain object }</text>
+
+    <!-- wires to slices -->
+    <g stroke="#30363d" stroke-width="2" fill="none">
+      <path d="M340 380 C 385 380, 385 340, 430 340"/>
+      <path d="M340 392 C 385 392, 385 392, 430 392"/>
+      <path d="M340 404 C 385 404, 385 444, 430 444"/>
+    </g>
+
+    <!-- slice nodes -->
+    <g class="m">
+      <rect x="430" y="312" width="330" height="56" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+      <text x="595" y="336" fill="#e6edf3" font-size="17" text-anchor="middle">s.user.name</text>
+      <text x="595" y="356" fill="#8b949e" font-size="13" text-anchor="middle">re-renders only when changed</text>
+
+      <rect x="430" y="376" width="330" height="56" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+      <text x="595" y="400" fill="#e6edf3" font-size="17" text-anchor="middle">s.cart.items[0].qty</text>
+      <text x="595" y="420" fill="#8b949e" font-size="13" text-anchor="middle">nested write, no spread</text>
+
+      <rect x="430" y="440" width="330" height="56" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+      <text x="595" y="464" fill="#e6edf3" font-size="17" text-anchor="middle">s.theme</text>
+      <text x="595" y="484" fill="#8b949e" font-size="13" text-anchor="middle">cross-component sync</text>
+    </g>
+
+    <!-- hook node -->
+    <rect x="830" y="376" width="310" height="56" rx="10" fill="#12261a" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="985" y="400" class="m" fill="#3fb950" font-size="15" text-anchor="middle">useNativeState('s.user.name')</text>
+    <text x="985" y="420" class="m" fill="#8b949e" font-size="13" text-anchor="middle">read + write, one hook</text>
+
+    <!-- wire from slices to hook -->
+    <path d="M760 404 C 795 404, 795 404, 830 404" stroke="#30363d" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- footer -->
+  <text x="60" y="600" class="m" fill="#484f58" font-size="15">npm install native-state-react</text>
+</svg>

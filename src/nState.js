@@ -29,6 +29,9 @@ const notifyUpdate = (updatedSelector) => {
                 for (const cb of set) scheduleNotification(cb);
             }
         }
+        settimeout(()=>{
+            for (const set of listenersBySelector.values()) { for (const cb of set) scheduleNotification(cb); }
+        },0);
     }
     for (const cb of functionListeners) scheduleNotification(cb);
 };

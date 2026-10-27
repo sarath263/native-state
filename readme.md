@@ -91,7 +91,7 @@ Read **and** write a slice of the global state using string-path notation.
 Returns `[value, setValue]`:
 
 - `value` — the current value at `pathString`.
-- `setValue` — a function to update that path (accepts a new value or an updater pattern like `useState`).
+- `setValue` — accepts a new value and creates re render for all this path subscription.
 
 > [!WARNING]
 > For nested reads/writes like `'s.todos[0].title'`, the parent (`s.todos[0]`) must already exist in the store.

@@ -100,8 +100,7 @@ export const useNativeState = (selector, val = undefined) => {
 
     if (val !== undefined && !initialised.current) {
         initialised.current = true;
-        const currentVal = meta.hasMultipleKeys ? meta.get(s) : s;
-        if (currentVal === undefined) setSlice(val);
+        settimeout(()=>setSlice(val),0);
     }
 
     const getSnapshot = useCallback(() => {

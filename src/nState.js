@@ -100,7 +100,7 @@ export const useNativeState = (selector, val = undefined) => {
 
     if (val !== undefined && !initialised.current) {
         initialised.current = true;
-        settimeout(()=>setSlice(val),0);
+        setTimeout(()=>setSlice(val),0);
     }
 
     const getSnapshot = useCallback(() => {

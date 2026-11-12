@@ -1,12 +1,18 @@
+
+
 <div align="center">
-  <img src="assets/cover.svg" alt="native-state-react — global state for React, using only React: 0 dependencies, ~115 lines, string-path selectors, surgical re-renders" width="100%" />
-  <p><b>Global state for React, using only React.</b><br/>No Redux, no Zustand, no Context boilerplate — 115 lines of code, string-path selectors, surgical re-renders.</p>
+  <a href="https://sarath263.github.io/native-state-react/"><img src="assets/cover.svg" alt="native-state-react — global state for React, using only React: 0 dependencies, ~120 lines, string-path selectors, surgical re-renders" width="100%" /></a>
+  <p><b>Global state for React, using only React.</b><br/>No Redux, no Zustand, no Context boilerplate — 120 lines of code, string-path selectors, surgical re-renders.</p>
   <p>
-    <a href="https://www.npmjs.com/package/native-state-react"><img src="https://img.shields.io/npm/v/native-state-react?style=for-the-badge&color=cb3837&logo=npm" alt="npm" /></a>
-    <a href="https://www.npmjs.com/package/native-state-react"><img src="https://img.shields.io/npm/dm/native-state-react?style=for-the-badge&color=cb3837&logo=npm" alt="npm downloads" /></a>
-    <a href="https://github.com/sarath263/native-state"><img src="https://img.shields.io/github/stars/sarath263/native-state?style=for-the-badge&color=ffdd57&logo=github" alt="GitHub stars" /></a>
-    <a href="https://bundlephobia.com/package/native-state-react"><img src="https://img.shields.io/bundlephobia/min/native-state-react?style=for-the-badge&color=blue" alt="bundle size" /></a>
+    <a href="https://www.npmjs.com/package/native-state-react"><img src="https://img.shields.io/npm/v/native-state-react?style=for-the-badge&color=b9de40&logo=npm" alt="npm" /></a>
+    <a href="https://www.npmjs.com/package/native-state-react"><img src="https://img.shields.io/npm/dm/native-state-react?style=for-the-badge&color=0599fc&logo=npm" alt="npm downloads" /></a>
+    <a href="https://github.com/sarath263/native-state"><img src="https://img.shields.io/github/stars/sarath263/native-state?style=for-the-badge&color=6f3dd4&logo=github" alt="GitHub stars" /></a>
+    <img src="https://img.shields.io/badge/React_Native-supported-14ba5c?style=for-the-badge&logo=react&logoColor=white" alt="React Native" />
+  <br/>
+     <img src="https://img.shields.io/badge/dependencies-zero-brightgreen" alt="Zero Dependencies" />
+
   </p>
+  
   <br/>
   <pre>npm install native-state-react</pre>
   <br/>
@@ -14,9 +20,11 @@
 
 > **Note:** the repository is `native-state`; the npm package is **`native-state-react`**. Same library.
 
-## Searchable summary
+ *New:* **See Full Documentation <a href="https://sarath263.github.io/native-state-react/"> here** </a>
 
-`native-state-react` is a dependency-free global state library for React. It's a single module (~115 lines) built on React's own `useSyncExternalStore`. It exposes a `<Root>` initializer and two hooks — `useNativeState(path, initial)` to read **and** write a slice, and `useNativeSelector(selector)` to read one — with string-path addressing (`s.user.name`, `s.todos[0].done`) so you update nested state without spreading, without `immer`, and without a reducers/actions/boilerplate layer. Components re-render only when the slice they read (or a sub-slice of it) changes, and the same API works in React Native.
+## Summary
+
+`native-state-react` is a dependency-free global state library for React. It's a single module (~120 lines) built on React's own `useSyncExternalStore`. It exposes a `<Root>` initializer and two hooks — `useNativeState(path, initial)` to read and write a slice, and `useNativeSelector(selector)` to read one — with string-path addressing (`s.user.name`, `s.todos[0].done`) so *you update nested state without spreading, without `immer`, and without a reducer/actions/boilerplate layer*. Components re-render only when the slice they read (or a sub-slice of it) changes, and the same API works in React Native.
 
 ## Why another state library?
 
@@ -27,7 +35,7 @@ React already ships everything you need for global state: `useSyncExternalStore`
 ## Features
 
 - **Zero dependencies.** Uses only React's built-in hooks. Nothing else to install, ever.
-- **~115 lines.** The entire library is one small file. Read all of it in five minutes and know exactly what it does.
+- **~120 lines.** The entire library is one small file. Read all of it in five minutes and know exactly what it does.
 - **String-path state.** `useNativeState('s.user.name', 'George')` reads *and* writes a nested slice. No spreads, no reducers, no actions, no immutability helpers.
 - **Surgical re-rendering.** A component re-renders only when the slice it reads changes. Backed by React 18's `useSyncExternalStore`, so rendering is tear-free.
 - **React Native compatible.** No DOM assumptions — the same API runs on web and native.
@@ -118,16 +126,16 @@ If you only *read* state, prefer `useNativeSelector` with a string path for the 
 | | **native-state-react** | Context + useState | Redux (Toolkit) | Zustand | Jotai |
 |---|---|---|---|---|---|
 | Dependencies | **0** | 0 | 4+ | 1 | 1 |
-| Core size | **~115 lines** | n/a | ~KBs | ~600 lines | ~1K lines |
+| Core size | **~120 lines** | n/a | ~KBs | ~600 lines | ~1K lines |
 | Nested updates | `s.user.name` | manual spread | `createSlice` | `set(s => …)` | separate atoms |
 | Re-render scope | **slice** | every consumer | selector | selector | atom |
 | Boilerplate | **none** | Provider + context | store/slice/reducers | `create()` | `atom()` |
 | React Native | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Devtools / middleware | ✗ | ✗ | ✅ | ✅ | ✅ |
+| Devtools / middleware | 🟡 | ✗ | ✅ | ✅ | ✅ |
 
 ## The consequence of use
 
-The whole point of choosing a 115-line, zero-dependency library is what *disappears* when you adopt it — no store factory, no actions/reducers, no `immer`, no wiring. The same state update that takes a slice + reducer + `configureStore` elsewhere is one line here, and only the component that reads the changed slice re-renders.
+The whole point of choosing a 120-line, zero-dependency library is what *disappears* when you adopt it — no store factory, no actions/reducers, no `immer`, no wiring. The same state update that takes a slice + reducer + `configureStore` elsewhere is one line here, and only the component that reads the changed slice re-renders.
 
 <img src="assets/value.svg" alt="The consequence of use: without native-state (store, actions, reducers, middleware, immer, 4+ dependencies) versus with native-state-react (one hook, one line, 0 dependencies, surgical re-renders)" width="100%" />
 
@@ -148,29 +156,6 @@ Because there's no virtual store, no proxy, and no serialization, the runtime co
 - **[`example/`](example)** — a Create React App demo showing live updates, timestamps, and cross-component syncing (one component writes, another reads the same slice).
 - **[`benchmark/`](benchmark)** — a Vite app that compares `native-state-react` against `redux`/`react-redux` and `zustand` side-by-side.
 
-## When to use it — and when not to
-
-**Reach for `native-state-react` when:**
-
-- You're building a small-to-medium app with a single global store.
-- You want **zero dependencies** and a core you can actually read in full.
-- You like string-path access to nested state instead of spread/`immer` ceremony.
-
-**Reach for Redux or Zustand when:**
-
-- You need devtools, middleware, time-travel debugging, or persistence.
-- You need multiple independent stores or lazy/code-split store registration.
-- A large team needs enforced, framework-style patterns.
-
-## Honest limitations
-
-No tool is a perfect fit, and this one is intentionally small:
-
-- **One global store.** The store is a single module-level object — no multiple stores or per-feature scoping.
-- **No devtools / middleware / persistence.** Bring your own, or use a larger library if you need them.
-- **Single initialization.** `<Root>` seeds the store once. Fine for a typical SPA; SSR and multiple React roots need care.
-- **No TypeScript declarations yet.** The package ships plain JS. A `index.d.ts` would be a great first PR.
-
 ## FAQ
 
 **Is it a drop-in replacement for Redux?**
@@ -184,6 +169,28 @@ React 18+ (it uses `useSyncExternalStore`), including React 19.
 
 **What's the difference between `s.` and `state.` prefixes?**
 They're interchangeable aliases for the root of the store. Pick one and be consistent.
+
+## When to use it — and when not to
+
+**Reach for `native-state-react` when:**
+
+- You're building a app with a single global store.
+- You want **zero dependencies** and a core you can actually read in full.
+- You like string-path access to nested state instead of spread/`immer` ceremony with reducers.
+
+**Reach for Redux or Zustand when:**
+
+- You need multiple independent stores or many reducers.
+- A large team needs more boilerplate enforced, framework-style more code patterns.
+- You need middleware, time-travel debugging, or persistence.
+
+## Honest limitations
+
+No tool is a perfect fit, and this one is intentionally small:
+
+- **One global store.** The store is a single module-level object — no multiple stores or per-feature scoping.
+- **No middleware / persistence for now.** Bring your own, or use a library if you need them.
+- **No TypeScript declarations yet.** The package ships plain JS. A `index.d.ts` would be a great first PR.
 
 ## Why it exists
 

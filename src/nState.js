@@ -7,12 +7,10 @@ let s = initialState;
 let first = true;
 const pendingCallbacks = new Set();
 let updateScheduled = false;
-
 const flushNotifications = () => {
     updateScheduled = false; const callbacks = Array.from(pendingCallbacks); pendingCallbacks.clear();
     for (let i = 0; i < callbacks.length; i++) callbacks[i]();
 };
-
 const scheduleNotification = (callback) => {
     pendingCallbacks.add(callback);
     if (!updateScheduled) { updateScheduled = true; queueMicrotask(flushNotifications); }
@@ -32,7 +30,6 @@ const notifyUpdate = (updatedSelector) => {
     }
     for (const cb of functionListeners) scheduleNotification(cb);
 };
-
 const subscribe = (selector, callback) => {
     let set = listenersBySelector.get(selector);
     if (!set) { set = new Set(); listenersBySelector.set(selector, set); }
@@ -53,7 +50,6 @@ const compileGetter = (keysList) => {
     if (len === 2) { const k0 = keysList[0]; const k1 = keysList[1]; return (state) => { if (state == null) return undefined; const v = state[k0]; return v == null ? undefined : v[k1]; }; }
     return (state) => { let val = state; for (let i = 0; i < len; i++) { if (val == null) return undefined; val = val[keysList[i]]; } return val; };
 };
-
 function getMeta(selector) {
     if (typeof selector !== "string") return null;
     let meta = selectorCache.get(selector);
@@ -83,7 +79,6 @@ export const useNativeSelector = (selector) => {
 export const useNativeState = (selector, val = undefined) => {
     const meta = useMemo(() => getMeta(selector), [selector]);
     const initialised = useRef(false);
-
     const setSlice = useCallback((newVal = {}) => {
         if (meta.hasMultipleKeys) {
             const slicedS = { ...s };
@@ -96,19 +91,30 @@ export const useNativeState = (selector, val = undefined) => {
             s = { ...s, ...newVal };
             notifyUpdate();
         }
+        debugState(s);
     }, [meta, selector]);
-
     if (val !== undefined && !initialised.current) {
         initialised.current = true;
         setTimeout(()=>setSlice(val),0);
     }
-
     const getSnapshot = useCallback(() => {
         try { return meta.hasMultipleKeys ? meta.get(s) : s; }
         catch { return undefined; }
     }, [meta]);
-
     const customSubscribe = useCallback((callback) => subscribe(selector, callback), [selector]);
     const sliced = useSyncExternalStore(customSubscribe, getSnapshot, getSnapshot);
     return [sliced, setSlice];
 };
+const debugState=async (currentState=null)=>{
+    const isLocalhost = typeof window !== 'undefined' && Boolean(
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '[::1]' || // IPv6 localhost
+        window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/) // IPv4 127.0.0.1 - 127.255.255.254
+    );
+    if (isLocalhost || (
+        process && typeof window !== 'undefined' && 
+        (process?.env?.NODE_ENV == 'dev' || process?.env?.NODE_ENV == 'development')
+    )) {
+        window.GLOBAL_STATE = currentState || s;
+    }
+}

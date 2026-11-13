@@ -39,7 +39,7 @@ const subscribe = (selector, callback) => {
 const subscribeFn = (selector, callback) => {
     functionListeners.add(callback); return () => functionListeners.delete(callback);
 };
-export function Root({ children = null, initial = initialState }) { if (first) { s = initial; notifyUpdate(); first = false; } return children; }
+export function Root({ children = null, initial = initialState }) { if (first) { s = initial; notifyUpdate(); first = false; debugState(s);} return children; }
 
 const selectorCache = new Map();
 
@@ -105,16 +105,23 @@ export const useNativeState = (selector, val = undefined) => {
     const sliced = useSyncExternalStore(customSubscribe, getSnapshot, getSnapshot);
     return [sliced, setSlice];
 };
+
 const debugState=async (currentState=null)=>{
-    const isLocalhost = typeof window !== 'undefined' && Boolean(
-        window.location.hostname === 'localhost' ||
-        window.location.hostname === '[::1]' || // IPv6 localhost
-        window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/) // IPv4 127.0.0.1 - 127.255.255.254
-    );
-    if (isLocalhost || (
-        process && typeof window !== 'undefined' && 
-        (process?.env?.NODE_ENV == 'dev' || process?.env?.NODE_ENV == 'development')
-    )) {
-        window.GLOBAL_STATE = currentState || s;
+    try {
+        setTimeout(() => {
+            const isLocalhost = typeof window !== 'undefined' && Boolean(
+                window.location.hostname === 'localhost' ||
+                window.location.hostname === '[::1]' || // IPv6 localhost
+                window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/) // IPv4 127.0.0.1 - 127.255.255.254
+            );
+            if (isLocalhost || (
+                process && typeof window !== 'undefined' && 
+                (process?.env?.NODE_ENV == 'dev' || process?.env?.NODE_ENV == 'development')
+            )) {
+                window.GLOBAL_STATE = currentState || s;
+            }
+        }, 0);
+    } catch (error) {
+        
     }
 }

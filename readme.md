@@ -1,8 +1,8 @@
 
 
 <div align="center">
-  <a href="https://sarath263.github.io/native-state-react/"><img src="assets/cover.svg" alt="native-state-react — global state for React, using only React: 0 dependencies, ~120 lines, string-path selectors, surgical re-renders" width="100%" /></a>
-  <p><b>Global state for React, using only React.</b><br/>No Redux, no Zustand, no Context boilerplate — 120 lines of code, string-path selectors, surgical re-renders.</p>
+  <a href="https://sarath263.github.io/native-state-react/"><img src="assets/cover.svg" alt="native-state-react — global state for React, using only React: 0 dependencies, ~137 lines, string-path selectors, surgical re-renders" width="100%" /></a>
+  <p><b>Global state for React, using only React.</b><br/>No Redux, no Zustand, no Context boilerplate — 137 lines of code, string-path selectors, surgical re-renders.</p>
   <p>
     <a href="https://www.npmjs.com/package/native-state-react"><img src="https://img.shields.io/npm/v/native-state-react?style=for-the-badge&color=b9de40&logo=npm" alt="npm" /></a>
     <a href="https://www.npmjs.com/package/native-state-react"><img src="https://img.shields.io/npm/dm/native-state-react?style=for-the-badge&color=0599fc&logo=npm" alt="npm downloads" /></a>
@@ -24,7 +24,7 @@
 
 ## Summary
 
-`native-state-react` is a dependency-free global state library for React. It's a single module (~120 lines) built on React's own `useSyncExternalStore`. It exposes a `<Root>` initializer and two hooks — `useNativeState(path, initial)` to read and write a slice, and `useNativeSelector(selector)` to read one — with string-path addressing (`s.user.name`, `s.todos[0].done`) so *you update nested state without spreading, without `immer`, and without a reducer/actions/boilerplate layer*. Components re-render only when the slice they read (or a sub-slice of it) changes, and the same API works in React Native.
+`native-state-react` is a dependency-free global state library for React. It's a single module (~137 lines) built on React's own `useSyncExternalStore`. It exposes a `<Root>` initializer and two hooks — `useNativeState(path, initial)` to read and write a slice, and `useNativeSelector(selector)` to read one — with string-path addressing (`s.user.name`, `s.todos[0].done`) so *you update nested state without spreading, without `immer`, and without a reducer/actions/boilerplate layer*. Components re-render only when the slice they read (or a sub-slice of it) changes, and the same API works in React Native.
 
 ## Why another state library?
 
@@ -35,7 +35,7 @@ React already ships everything you need for global state: `useSyncExternalStore`
 ## Features
 
 - **Zero dependencies.** Uses only React's built-in hooks. Nothing else to install, ever.
-- **~120 lines.** The entire library is one small file. Read all of it in five minutes and know exactly what it does.
+- **~137 lines.** The entire library is one small file. Read all of it in five minutes and know exactly what it does.
 - **String-path state.** `useNativeState('s.user.name', 'George')` reads *and* writes a nested slice. No spreads, no reducers, no actions, no immutability helpers.
 - **Surgical re-rendering.** A component re-renders only when the slice it reads changes. Backed by React 18's `useSyncExternalStore`, so rendering is tear-free.
 - **React Native compatible.** No DOM assumptions — the same API runs on web and native.
@@ -126,7 +126,7 @@ If you only *read* state, prefer `useNativeSelector` with a string path for the 
 | | **native-state-react** | Context + useState | Redux (Toolkit) | Zustand | Jotai |
 |---|---|---|---|---|---|
 | Dependencies | **0** | 0 | 4+ | 1 | 1 |
-| Core size | **~120 lines** | n/a | ~KBs | ~600 lines | ~1K lines |
+| Core size | **~137 lines** | n/a | ~KBs | ~600 lines | ~1K lines |
 | Nested updates | `s.user.name` | manual spread | `createSlice` | `set(s => …)` | separate atoms |
 | Re-render scope | **slice** | every consumer | selector | selector | atom |
 | Boilerplate | **none** | Provider + context | store/slice/reducers | `create()` | `atom()` |
@@ -135,7 +135,7 @@ If you only *read* state, prefer `useNativeSelector` with a string path for the 
 
 ## The consequence of use
 
-The whole point of choosing a 120-line, zero-dependency library is what *disappears* when you adopt it — no store factory, no actions/reducers, no `immer`, no wiring. The same state update that takes a slice + reducer + `configureStore` elsewhere is one line here, and only the component that reads the changed slice re-renders.
+The whole point of choosing a 137-line, zero-dependency library is what *disappears* when you adopt it — no store factory, no actions/reducers, no `immer`, no wiring. The same state update that takes a slice + reducer + `configureStore` elsewhere is one line here, and only the component that reads the changed slice re-renders.
 
 <img src="assets/value.svg" alt="The consequence of use: without native-state (store, actions, reducers, middleware, immer, 4+ dependencies) versus with native-state-react (one hook, one line, 0 dependencies, surgical re-renders)" width="100%" />
 

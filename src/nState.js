@@ -115,7 +115,7 @@ const debugState=async (currentState=null)=>{
                 window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/) // IPv4 127.0.0.1 - 127.255.255.254
             );
             if (isLocalhost || (
-                process && typeof window !== 'undefined' && 
+                typeof process !== 'undefined' && typeof window !== 'undefined' && 
                 (process?.env?.NODE_ENV == 'dev' || process?.env?.NODE_ENV == 'development')
             )) {
                 window.GLOBAL_STATE = currentState || s;
